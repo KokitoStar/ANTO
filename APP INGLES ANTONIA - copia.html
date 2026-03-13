@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌟 Inglés para Antonia 🌟</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --yellow:#FFD93D; --pink:#FF6B9D; --blue:#4ECDC4; --purple:#A29BFE;
+    --orange:#FF9A3C; --green:#6BCB77; --red:#FF6B6B; --bg:#FFF9F0; --dark:#2D2D44;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Nunito',sans-serif;background:var(--bg);min-height:100vh;overflow-x:hidden;}
+  body::before{content:'⭐ 🌙 ⭐ 🌟 ✨ ⭐ 🌟 ✨';position:fixed;top:0;left:0;width:100%;font-size:1.5rem;letter-spacing:4rem;opacity:0.1;pointer-events:none;z-index:0;white-space:nowrap;overflow:hidden;}
+
+  header{background:linear-gradient(135deg,var(--pink) 0%,var(--purple) 100%);padding:1.2rem 1rem;text-align:center;box-shadow:0 6px 20px rgba(162,155,254,0.4);position:relative;z-index:10;}
+  header h1{font-family:'Baloo 2',cursive;font-size:2.2rem;color:white;text-shadow:3px 3px 0 rgba(0,0,0,0.15);}
+  header p{color:rgba(255,255,255,0.9);font-size:1rem;font-weight:700;margin-top:0.2rem;}
+  .score-bar{display:flex;justify-content:center;gap:0.4rem;margin-top:0.6rem;}
+  .star{font-size:1.6rem;transition:transform 0.3s;}
+  .star.lit{animation:starPop 0.4s ease;}
+  @keyframes starPop{0%{transform:scale(1)}50%{transform:scale(1.5)}100%{transform:scale(1)}}
+
+  nav{display:flex;overflow-x:auto;gap:0.5rem;padding:1rem;background:white;border-bottom:3px solid #f0e6ff;position:sticky;top:0;z-index:9;justify-content:center;flex-wrap:wrap;}
+  nav button{font-family:'Baloo 2',cursive;font-size:0.95rem;font-weight:600;padding:0.5rem 1.1rem;border:3px solid transparent;border-radius:50px;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+  nav button:nth-child(1){background:#FFE5EE;color:var(--pink);}
+  nav button:nth-child(2){background:#E5F9F7;color:var(--blue);}
+  nav button:nth-child(3){background:#EAE9FF;color:var(--purple);}
+  nav button:nth-child(4){background:#FFF3E0;color:var(--orange);}
+  nav button:nth-child(5){background:#E8F8E9;color:var(--green);}
+  nav button.active,nav button:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 6px 16px rgba(0,0,0,0.15);border-color:currentColor;}
+
+  .section{display:none;padding:1.5rem 1rem;max-width:720px;margin:0 auto;position:relative;z-index:1;}
+  .section.active{display:block;}
+  .section-title{font-family:'Baloo 2',cursive;font-size:1.6rem;font-weight:800;color:var(--dark);margin-bottom:0.8rem;text-align:center;}
+
+  /* Explanation boxes */
+  .explain-box{border-radius:20px;padding:1rem 1.2rem;margin-bottom:1.2rem;font-size:0.93rem;font-weight:700;line-height:1.7;border-left:5px solid;position:relative;}
+  .explain-box.pink  {background:#FFF0F5;border-color:var(--pink);  color:#b04070;}
+  .explain-box.blue  {background:#E8FAFA;border-color:var(--blue);  color:#2a8a84;}
+  .explain-box.purple{background:#EEEEFF;border-color:var(--purple);color:#5c54cc;}
+  .explain-box.orange{background:#FFF6ED;border-color:var(--orange);color:#b06020;}
+  .explain-box.green {background:#EDFAEE;border-color:var(--green); color:#2a7a38;}
+  .explain-box .ex-title{font-family:'Baloo 2',cursive;font-size:1.1rem;margin-bottom:0.4rem;display:flex;align-items:center;gap:0.5rem;}
+  .tag{display:inline-block;background:rgba(0,0,0,0.08);border-radius:8px;padding:0.15rem 0.55rem;margin:0.15rem;font-size:0.82rem;}
+
+  /* Listen button */
+  .listen-btn{
+    display:inline-flex;align-items:center;gap:0.4rem;
+    font-family:'Baloo 2',cursive;font-weight:700;font-size:0.9rem;
+    padding:0.45rem 1rem;border-radius:50px;border:none;cursor:pointer;
+    margin-top:0.7rem;transition:transform 0.2s,box-shadow 0.2s;
+    box-shadow:0 3px 10px rgba(0,0,0,0.15);
+  }
+  .listen-btn:hover{transform:scale(1.07);box-shadow:0 5px 16px rgba(0,0,0,0.2);}
+  .listen-btn.pink  {background:var(--pink);  color:white;}
+  .listen-btn.blue  {background:var(--blue);  color:white;}
+  .listen-btn.purple{background:var(--purple);color:white;}
+  .listen-btn.orange{background:var(--orange);color:white;}
+  .listen-btn.green {background:var(--green); color:white;}
+  .listen-btn.speaking{animation:pulse 0.6s infinite alternate;}
+  @keyframes pulse{from{transform:scale(1)}to{transform:scale(1.1)}}
+
+  /* Verb TO BE */
+  .tobe-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.8rem;}
+  .verb-card{border-radius:20px;padding:1.1rem;display:flex;flex-direction:column;align-items:center;gap:0.3rem;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;border:3px solid transparent;user-select:none;}
+  .verb-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,0.15);}
+  .verb-card .emoji {font-size:2rem;}
+  .verb-card .pronoun{font-size:1.3rem;font-weight:900;color:var(--dark);}
+  .verb-card .verb  {font-size:1.3rem;font-weight:900;letter-spacing:1px;}
+  .verb-card .trans {font-size:0.78rem;color:#777;text-align:center;}
+  .verb-card .vwhy  {font-size:0.72rem;color:#999;font-style:italic;text-align:center;line-height:1.4;}
+  .am-card {background:#FFE5EE;border-color:var(--pink);}  .am-card  .verb{color:var(--pink);}
+  .is-card {background:#E5F9F7;border-color:var(--blue);}  .is-card  .verb{color:var(--blue);}
+  .are-card{background:#EAE9FF;border-color:var(--purple);}.are-card .verb{color:var(--purple);}
+
+  /* small audio badge on cards */
+  .audio-row{display:flex;gap:0.4rem;margin-top:0.4rem;flex-wrap:wrap;justify-content:center;}
+  .ab{display:inline-flex;align-items:center;gap:0.3rem;font-size:0.75rem;font-weight:800;padding:0.25rem 0.6rem;border-radius:20px;border:none;cursor:pointer;transition:transform 0.15s;}
+  .ab:hover{transform:scale(1.1);}
+  .ab.en{background:#e0f4ff;color:#1a7a9a;}
+  .ab.es{background:#fff0f8;color:#c0407a;}
+
+  /* Clothes & Body */
+  .clothes-grid,.body-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.8rem;}
+  .cloth-card,.body-card{background:white;border-radius:20px;padding:0.9rem;display:flex;flex-direction:column;align-items:center;gap:0.3rem;transition:transform 0.2s,box-shadow 0.2s;box-shadow:0 4px 12px rgba(0,0,0,0.06);}
+  .cloth-card{border:3px solid #f0e6ff;}.cloth-card:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(0,0,0,0.13);border-color:var(--purple);}
+  .body-card {border:3px solid #fff3e0;}.body-card:hover {transform:translateY(-4px);box-shadow:0 10px 28px rgba(0,0,0,0.13);border-color:var(--orange);}
+  .card-emoji{font-size:2.6rem;}
+  .card-en{font-size:1.05rem;font-weight:900;color:var(--dark);}
+  .card-es{font-size:0.85rem;font-weight:700;}
+  .cloth-card .card-es{color:var(--purple);}.body-card .card-es{color:var(--orange);}
+  .card-tip{font-size:0.72rem;color:#aaa;font-style:italic;text-align:center;line-height:1.4;}
+
+  /* This/That */
+  .thisthat-container{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.2rem;}
+  .thisthat-card{border-radius:24px;padding:1.2rem 0.8rem;text-align:center;cursor:pointer;transition:transform 0.2s;border:4px solid transparent;}
+  .thisthat-card:hover{transform:scale(1.04);}
+  .this-card{background:#E5F9F7;border-color:var(--blue);}
+  .that-card{background:#EAE9FF;border-color:var(--purple);}
+  .tt-emoji{font-size:2.5rem;}
+  .tt-word{font-family:'Baloo 2',cursive;font-size:1.6rem;font-weight:800;}
+  .this-card .tt-word{color:var(--blue);}.that-card .tt-word{color:var(--purple);}
+  .tt-sub{font-size:0.9rem;font-weight:800;color:#555;margin-top:0.2rem;}
+  .tt-why{font-size:0.73rem;color:#888;margin-top:0.25rem;font-style:italic;}
+  .tt-ex{font-size:0.78rem;color:#666;margin-top:0.4rem;background:rgba(255,255,255,0.65);border-radius:10px;padding:0.3rem 0.5rem;line-height:1.5;}
+
+  .practice-row{display:flex;flex-direction:column;gap:0.5rem;}
+  .prac-item{border-radius:14px;padding:0.65rem 0.9rem;font-weight:700;font-size:0.88rem;cursor:pointer;transition:transform 0.15s;display:flex;align-items:center;gap:0.5rem;}
+  .prac-item:hover{transform:scale(1.02);}
+
+  /* Quiz */
+  .quiz-counter{font-weight:700;color:#aaa;font-size:0.9rem;margin-bottom:0.6rem;}
+  .progress-bar{background:#f0e6ff;border-radius:50px;height:12px;margin-bottom:1rem;overflow:hidden;}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--pink),var(--purple));border-radius:50px;transition:width 0.5s ease;}
+  .quiz-container{text-align:center;}
+  .quiz-question{font-family:'Baloo 2',cursive;font-size:1.35rem;font-weight:800;color:var(--dark);margin-bottom:0.4rem;}
+  .quiz-emoji{font-size:4.5rem;margin:0.8rem 0;display:block;}
+  .quiz-hint{font-size:0.88rem;color:#999;margin-bottom:0.5rem;font-style:italic;min-height:1.2rem;}
+  .quiz-options{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-top:1rem;}
+  .quiz-opt{font-family:'Nunito',sans-serif;font-size:1rem;font-weight:800;padding:0.85rem;border-radius:16px;border:3px solid #ddd;background:white;cursor:pointer;transition:all 0.2s;}
+  .quiz-opt:hover{transform:scale(1.04);border-color:var(--purple);background:#EAE9FF;}
+  .quiz-opt.correct{background:var(--green);color:white;border-color:var(--green);animation:bounce 0.4s;}
+  .quiz-opt.wrong  {background:var(--red);  color:white;border-color:var(--red);  animation:shake 0.4s;}
+  .quiz-opt:disabled{cursor:default;transform:none;}
+  @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+  @keyframes shake {0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+  .quiz-feedback{font-size:1.1rem;font-weight:900;margin-top:0.8rem;min-height:1.8rem;}
+  .feedback-correct{color:var(--green);}.feedback-wrong{color:var(--red);}
+
+  /* Why box in quiz */
+  .quiz-why-box{background:#fffbe6;border:2px solid #FFD93D;border-radius:16px;padding:0.8rem 1rem;margin-top:0.8rem;font-size:0.9rem;font-weight:700;color:#7a5c00;display:none;text-align:left;line-height:1.6;}
+  .quiz-why-box.show{display:block;}
+  .quiz-why-box .why-listen{display:inline-flex;align-items:center;gap:0.35rem;font-size:0.82rem;font-weight:800;padding:0.3rem 0.8rem;border-radius:20px;border:none;background:#FFD93D;color:#5a3e00;cursor:pointer;margin-top:0.5rem;transition:transform 0.15s;}
+  .quiz-why-box .why-listen:hover{transform:scale(1.07);}
+
+  .next-btn{margin-top:1rem;font-family:'Baloo 2',cursive;font-size:1.2rem;font-weight:700;padding:0.8rem 2.5rem;border-radius:50px;border:none;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;cursor:pointer;display:none;transition:transform 0.2s,box-shadow 0.2s;box-shadow:0 6px 20px rgba(255,107,157,0.4);}
+  .next-btn:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(255,107,157,0.5);}
+  .next-btn.visible{display:inline-block;}
+
+  .congrats{display:none;text-align:center;padding:2rem;}
+  .congrats.show{display:block;}
+  .congrats-emoji{font-size:5rem;display:block;animation:spin 1s ease;}
+  @keyframes spin{0%{transform:rotate(0deg) scale(0)}60%{transform:rotate(20deg) scale(1.2)}100%{transform:rotate(0deg) scale(1)}}
+  .congrats h2{font-family:'Baloo 2',cursive;font-size:2rem;color:var(--purple);margin:1rem 0;}
+  .congrats p{color:#888;font-size:1.05rem;}
+  .restart-btn{margin-top:1.5rem;font-family:'Baloo 2',cursive;font-size:1.2rem;font-weight:700;padding:0.8rem 2.5rem;border-radius:50px;border:none;background:linear-gradient(135deg,var(--green),var(--blue));color:white;cursor:pointer;box-shadow:0 6px 20px rgba(78,205,196,0.4);transition:transform 0.2s;}
+  .restart-btn:hover{transform:scale(1.06);}
+
+  .confetti{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999;display:none;}
+  .confetti.show{display:block;}
+  .confetti-piece{position:absolute;top:-10px;width:12px;height:12px;border-radius:2px;animation:fall linear forwards;}
+  @keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:0;}}
+</style>
+</head>
+<body>
+<div class="confetti" id="confetti"></div>
+
+<header>
+  <h1>🌟 Inglés para Antonia 🌟</h1>
+  <p>¡Aprende inglés jugando, Antonia! 💖</p>
+  <div class="score-bar">
+    <span class="star" id="s1">⭐</span><span class="star" id="s2">⭐</span>
+    <span class="star" id="s3">⭐</span><span class="star" id="s4">⭐</span><span class="star" id="s5">⭐</span>
+  </div>
+</header>
+
+<nav>
+  <button class="active" onclick="showSection('verbos',this)">📚 Verbo TO BE</button>
+  <button onclick="showSection('ropa',this)">👕 Ropa</button>
+  <button onclick="showSection('cuerpo',this)">🫶 Cuerpo</button>
+  <button onclick="showSection('thist',this)">📍 This &amp; That</button>
+  <button onclick="showSection('quiz',this)">🎮 ¡Jugar!</button>
+</nav>
+
+<!-- ===================== VERBO TO BE ===================== -->
+<section class="section active" id="verbos">
+  <div class="section-title">📚 El Verbo <em>TO BE</em></div>
+
+  <div class="explain-box pink">
+    <div class="ex-title">💡 ¿Qué significa TO BE?</div>
+    En español decimos <strong>"ser"</strong> o <strong>"estar"</strong>. En inglés esas dos palabras se unen en una sola: <strong>TO BE</strong>.<br><br>
+    Pero dependiendo de quién habla, la palabra cambia. Hay solo 3 formas:<br>
+    <span class="tag">🩷 AM → solo para YO</span>
+    <span class="tag">🩵 IS → para 1 persona o cosa</span>
+    <span class="tag">💜 ARE → para varias personas</span><br>
+    <button class="listen-btn pink" onclick="speakMixed('En español decimos ser o estar. En inglés esas dos palabras se juntan en una sola que se llama [[to be]]. Pero según quién habla, la palabra cambia. Hay solo tres formas: [[AM]], que es solo para yo. [[IS]], que es para una sola persona o cosa. Y [[ARE]], que es para varias personas.')">🔊 Escuchar explicación</button>
+  </div>
+
+  <div class="tobe-grid">
+
+    <div class="verb-card am-card" onclick="speakEn('I am')">
+      <span class="emoji">🙋‍♀️</span>
+      <span class="pronoun">I</span>
+      <span class="verb">AM</span>
+      <span class="trans">yo soy / estoy</span>
+      <span class="vwhy">Solo "I" usa AM.<br>Ej: I am Antonia ✨</span>
+      <div class="audio-row">
+        <button class="ab en" onclick="event.stopPropagation();speakEn('I am')">🔊 I am</button>
+        <button class="ab es" onclick="event.stopPropagation();speakMixed('La letra [[I]] significa yo en inglés. Solo yo uso [[AM]]. Por ejemplo: [[I am Antonia]].')">🇨🇴 ¿Por qué?</button>
+      </div>
+    </div>
+
+    <div class="verb-card is-card" onclick="speakEn('She is')">
+      <span class="emoji">👧</span>
+      <span class="pronoun">SHE</span>
+      <span class="verb">IS</span>
+      <span class="trans">ella es / está</span>
+      <span class="vwhy">Es 1 sola persona (ella).<br>Ej: She is happy 😊</span>
+      <div class="audio-row">
+        <button class="ab en" onclick="event.stopPropagation();speakEn('She is')">🔊 She is</button>
+        <button class="ab es" onclick="event.stopPropagation();speakMixed('[[SHE]] significa ella. Como es una sola persona, usamos [[IS]]. Por ejemplo: [[She is happy]].')">🇨🇴 ¿Por qué?</button>
+      </div>
+    </div>
+
+    <div class="verb-card is-card" onclick="speakEn('He is')">
+      <span class="emoji">👦</span>
+      <span class="pronoun">HE</span>
+      <span class="verb">IS</span>
+      <span class="trans">él es / está</span>
+      <span class="vwhy">Es 1 solo (él).<br>Ej: He is tall 🧒</span>
+      <div class="audio-row">
+        <button class="ab en" onclick="event.stopPropagation();speakEn('He is')">🔊 He is</button>
+        <button class="ab es" onclick="event.stopPropagation();speakMixed('[[HE]] significa él. Como es una sola persona, también usamos [[IS]]. Por ejemplo: [[He is tall]].')">🇨🇴 ¿Por qué?</button>
+      </div>
+    </div>
+
+    <div class="verb-card is-card" onclick="speakEn('It is')">
+      <span class="emoji">🐶</span>
+      <span class="pronoun">IT</span>
+      <span class="verb">IS</span>
+      <span class="trans">eso es / está</span>
+      <span class="vwhy">Para 1 cosa o animal.<br>Ej: It is a dog 🐾</span>
+      <div class="audio-row">
+        <button class="ab en" onclick="event.stopPropagation();speakEn('It is')">🔊 It is</button>
+        <button class="ab es" onclick="event.stopPropagation();speakMixed('[[IT]] se usa para cosas o animales. Como es una sola cosa, usamos [[IS]]. Por ejemplo: [[It is a dog]].')">🇨🇴 ¿Por qué?</button>
+      </div>
+    </div>
+
+    <div class="verb-card are-card" onclick="speakEn('You are')">
+      <span class="emoji">👫</span>
+      <span class="pronoun">YOU</span>
+      <span class="verb">ARE</span>
+      <span class="trans">tú eres / estás</span>
+      <span class="vwhy">Cuando le hablas a alguien.<br>Ej: You are my friend 💛</span>
+      <div class="audio-row">
+        <button class="ab en" onclick="event.stopPropagation();speakEn('You are')">🔊 You are</button>
+        <button class="ab es" onclick="event.stopPropagation();speakMixed('[[YOU]] significa tú. Cuando le hablas a alguien, usamos [[ARE]]. Por ejemplo: [[You are my friend]].')">🇨🇴 ¿Por qué?</button>
+      </div>
+    </div>
+
+    <div class="verb-card are-card" onclick="speakEn('We are')">
+      <span class="emoji">👨‍👩‍👧</span>
+      <span class="pronoun">WE</span>
+      <span class="verb">ARE</span>
+      <span class="trans">nosotros somos</span>
+      <span class="vwhy">Varias personas juntas.<br>Ej: We are a family 💖</span>
+      <div class="audio-row">
+        <button class="ab en" onclick="event.stopPropagation();speakEn('We are')">🔊 We are</button>
+        <button class="ab es" onclick="event.stopPropagation();speakMixed('[[WE]] significa nosotros. Como somos un grupo de personas, usamos [[ARE]]. Por ejemplo: [[We are a family]].')">🇨🇴 ¿Por qué?</button>
+      </div>
+    </div>
+
+    <div class="verb-card are-card" onclick="speakEn('They are')" style="grid-column:span 2">
+      <span class="emoji">👨‍👩‍👧‍👦</span>
+      <span class="pronoun">THEY</span>
+      <span class="verb">ARE</span>
+      <span class="trans">ellos son / están</span>
+      <span class="vwhy">Varias personas de las que hablas.<br>Ej: They are friends 🤝</span>
+      <div class="audio-row">
+        <button class="ab en" onclick="event.stopPropagation();speakEn('They are')">🔊 They are</button>
+        <button class="ab es" onclick="event.stopPropagation();speakMixed('[[THEY]] significa ellos o ellas. Como son varias personas, usamos [[ARE]]. Por ejemplo: [[They are friends]].')">🇨🇴 ¿Por qué?</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="explain-box blue" style="margin-top:1.2rem">
+    <div class="ex-title">🧠 Truco para recordarlo</div>
+    🩷 <strong>AM</strong> = solo para <strong>YO (I)</strong><br>
+    🩵 <strong>IS</strong> = para hablar de <strong>1 sola persona o cosa</strong><br>
+    💜 <strong>ARE</strong> = para hablar de <strong>más de una persona</strong><br>
+    <button class="listen-btn blue" onclick="speakMixed('Truco para recordarlo. [[AM]] es solo para yo, es el único que lo usa. [[IS]] es para hablar de una sola persona o una sola cosa, como ella, él o eso. [[ARE]] es para hablar de más de una persona, como tú, nosotros, o ellos.')">🔊 Escuchar truco</button>
+  </div>
+</section>
+
+<!-- ===================== ROPA ===================== -->
+<section class="section" id="ropa">
+  <div class="section-title">👕 Ropa en Inglés</div>
+
+  <div class="explain-box purple">
+    <div class="ex-title">💡 ¿Por qué aprender la ropa en inglés?</div>
+    Cuando describes lo que llevas puesto, usas estas palabras. Cada tarjeta tiene el nombre en inglés, en español, y para qué sirve la prenda.<br>
+    Toca 🔊 para escuchar en inglés, y 🇨🇴 para escuchar la explicación en español.
+    <button class="listen-btn purple" onclick="speakMixed('Vamos a aprender la ropa en inglés. Cada tarjeta tiene el nombre en inglés, en español, y para qué sirve esa ropa. Puedes tocar el botón de la bandera para escuchar la explicación en español.')">🔊 Escuchar explicación</button>
+  </div>
+
+  <div class="clothes-grid" id="clothesGrid"></div>
+</section>
+
+<!-- ===================== CUERPO ===================== -->
+<section class="section" id="cuerpo">
+  <div class="section-title">🫶 Partes del Cuerpo</div>
+
+  <div class="explain-box orange">
+    <div class="ex-title">💡 ¿Para qué sirven estas palabras?</div>
+    Estas palabras aparecen en canciones y cuentos en inglés. ¡También están en la canción famosa "Head, Shoulders, Knees and Toes"! 🎵
+    <button class="listen-btn orange" onclick="speakMixed('Vamos a aprender las partes del cuerpo en inglés. Estas palabras aparecen en canciones y cuentos. También están en la famosa canción: [[Head, Shoulders, Knees and Toes]]. Toca cada tarjeta para escuchar cómo se dice en inglés.')">🔊 Escuchar explicación</button>
+  </div>
+
+  <div class="body-grid" id="bodyGrid"></div>
+
+  <div class="explain-box green" style="margin-top:1.2rem">
+    <div class="ex-title">🎵 ¡Dato importante!</div>
+    <strong>Finger</strong> = dedo de la MANO ✋<br>
+    <strong>Toe</strong> = dedo del PIE 🦶<br>
+    ¡En inglés son palabras diferentes! En español a los dos les decimos "dedo", pero en inglés los distinguen.
+    <button class="listen-btn green" onclick="speakMixed('Dato importante. En español le decimos dedo tanto al dedo de la mano como al dedo del pie. Pero en inglés son palabras diferentes. El dedo de la mano se dice [[finger]], y el dedo del pie se dice [[toe]]. Hay que recordar esa diferencia.')">🔊 Escuchar dato</button>
+  </div>
+</section>
+
+<!-- ===================== THIS & THAT ===================== -->
+<section class="section" id="thist">
+  <div class="section-title">📍 This / That / These / Those</div>
+
+  <div class="explain-box green">
+    <div class="ex-title">💡 ¿Cuándo usar cada uno?</div>
+    En español decimos "este, ese, estos, esos" para señalar cosas. En inglés también, pero depende de dos cosas: si está <strong>cerca o lejos</strong>, y si es <strong>1 cosa o varias</strong>.
+    <button class="listen-btn green" onclick="speakMixed('En español decimos este, ese, estos, esos para señalar cosas. En inglés también, pero hay que fijarse en dos cosas. Primero: ¿la cosa está cerca de ti o lejos de ti? Segundo: ¿es una sola cosa o son varias cosas? Según eso usamos [[this is]], [[that is]], [[these are]], o [[those are]].')">🔊 Escuchar explicación</button>
+  </div>
+
+  <div class="thisthat-container">
+    <div class="thisthat-card this-card">
+      <div class="tt-emoji">👇</div>
+      <div class="tt-word">THIS IS</div>
+      <div class="tt-sub">= "esto es..."</div>
+      <div class="tt-why">1 cosa CERCA de ti</div>
+      <div class="tt-ex"><em>"This is my hat"</em><br>= Este es mi sombrero 🎩</div>
+      <div class="audio-row" style="justify-content:center;margin-top:0.5rem">
+        <button class="ab en" onclick="speakEn('This is my hat')">🔊 En inglés</button>
+        <button class="ab es" onclick="speakMixed('[[This is]] significa esto es, y se usa cuando la cosa está muy cerca de ti. Por ejemplo: [[This is my hat]].')">🇨🇴 ¿Por qué?</button>
+      </div>
+    </div>
+    <div class="thisthat-card that-card">
+      <div class="tt-emoji">👉</div>
+      <div class="tt-word">THAT IS</div>
+      <div class="tt-sub">= "eso es..."</div>
+      <div class="tt-why">1 cosa LEJOS de ti</div>
+      <div class="tt-ex"><em>"That is her coat"</em><br>= Ese es su abrigo 🧥</div>
+      <div class="audio-row" style="justify-content:center;margin-top:0.5rem">
+        <button class="ab en" onclick="speakEn('That is her coat')">🔊 En inglés</button>
+        <button class="ab es" onclick="speakMixed('[[That is]] significa eso es, y se usa cuando la cosa está lejos de ti. Por ejemplo: [[That is her coat]].')">🇨🇴 ¿Por qué?</button>
+      </div>
+    </div>
+    <div class="thisthat-card" style="border:4px solid var(--green);background:#E8F8E9">
+      <div class="tt-emoji">👇👇</div>
+      <div class="tt-word" style="color:var(--green);font-size:1.4rem">THESE ARE</div>
+      <div class="tt-sub" style="color:#2a7a38">= "estos son..."</div>
+      <div class="tt-why" style="color:#5aaa68">Varias cosas CERCA</div>
+      <div class="tt-ex"><em>"These are my gloves"</em><br>= Estos son mis guantes 🧤</div>
+      <div class="audio-row" style="justify-content:center;margin-top:0.5rem">
+        <button class="ab en" onclick="speakEn('These are my gloves')">🔊 En inglés</button>
+        <button class="ab es" onclick="speakMixed('[[These are]] significa estos son, y se usa cuando hay varias cosas cerca de ti. Por ejemplo: [[These are my gloves]].')">🇨🇴 ¿Por qué?</button>
+      </div>
+    </div>
+    <div class="thisthat-card" style="border:4px solid var(--orange);background:#FFF3E0">
+      <div class="tt-emoji">👉👉</div>
+      <div class="tt-word" style="color:var(--orange);font-size:1.4rem">THOSE ARE</div>
+      <div class="tt-sub" style="color:#b06020">= "esos son..."</div>
+      <div class="tt-why" style="color:#cc8030">Varias cosas LEJOS</div>
+      <div class="tt-ex"><em>"Those are her boots"</em><br>= Esas son sus botas 🥾</div>
+      <div class="audio-row" style="justify-content:center;margin-top:0.5rem">
+        <button class="ab en" onclick="speakEn('Those are her boots')">🔊 En inglés</button>
+        <button class="ab es" onclick="speakMixed('[[Those are]] significa esos son, y se usa cuando hay varias cosas lejos de ti. Por ejemplo: [[Those are her boots]].')">🇨🇴 ¿Por qué?</button>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:white;border-radius:20px;padding:1.2rem;border:3px solid #f0e6ff">
+    <div style="font-family:'Baloo 2',cursive;font-size:1.1rem;font-weight:800;color:var(--dark);margin-bottom:0.8rem">🗣️ ¡Practica estas frases!</div>
+    <div class="practice-row">
+      <div class="prac-item" style="background:#FFE5EE" onclick="speakEn('This is my jacket')">🔊 <strong>"This is my jacket"</strong> → Esta es mi chaqueta</div>
+      <div class="prac-item" style="background:#E5F9F7" onclick="speakEn('That is her hat')">🔊 <strong>"That is her hat"</strong> → Ese es su sombrero</div>
+      <div class="prac-item" style="background:#E8F8E9" onclick="speakEn('These are my boots')">🔊 <strong>"These are my boots"</strong> → Estas son mis botas</div>
+      <div class="prac-item" style="background:#FFF3E0" onclick="speakEn('Those are her sandals')">🔊 <strong>"Those are her sandals"</strong> → Esas son sus sandalias</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== QUIZ ===================== -->
+<section class="section" id="quiz">
+  <div class="section-title">🎮 ¡Jugar y Aprender!</div>
+  <div id="quizActive">
+    <div class="quiz-counter" id="quizCounter">Pregunta 1 de 10</div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:10%"></div></div>
+    <div class="quiz-container">
+      <div class="quiz-question" id="quizQuestion"></div>
+      <span class="quiz-emoji" id="quizEmoji"></span>
+      <div class="quiz-hint" id="quizHint"></div>
+      <div class="quiz-options" id="quizOptions"></div>
+      <div class="quiz-feedback" id="quizFeedback"></div>
+      <div class="quiz-why-box" id="quizWhyBox">
+        <span id="quizWhyText"></span><br>
+        <button class="why-listen" id="whyListenBtn" onclick="speakCurrentWhy()">🔊 Escuchar explicación</button>
+      </div>
+      <button class="next-btn" id="nextBtn" onclick="nextQuestion()">¡Siguiente! →</button>
+    </div>
+  </div>
+  <div class="congrats" id="congrats">
+    <span class="congrats-emoji">🎉</span>
+    <h2>¡Antonia eres una estrella! ⭐</h2>
+    <p>Completaste todas las preguntas.<br>¡Sigue aprendiendo inglés, eres la mejor!</p><br>
+    <button class="restart-btn" onclick="restartQuiz()">🔄 ¡Jugar otra vez!</button>
+  </div>
+</section>
+
+<script>
+// ─── DATA ───────────────────────────────────────────────
+const clothes = [
+  {en:'Boots',      es:'Botas',            emoji:'🥾',
+   tip:'Para lluvia o frío ❄️',
+   whyEs:'[[Boots]] significa botas. Las botas se usan cuando hace frío o cuando llueve, para que los pies no se mojen.'},
+  {en:'Coat',       es:'Abrigo',           emoji:'🧥',
+   tip:'Para cuando hace mucho frío 🧊',
+   whyEs:'[[Coat]] significa abrigo. El abrigo es la ropa más grande y calientita que usamos en el invierno.'},
+  {en:'Gloves',     es:'Guantes',          emoji:'🧤',
+   tip:'Cubren tus manos del frío 🤲',
+   whyEs:'[[Gloves]] significa guantes. Los guantes cubren las manos para que no les dé frío.'},
+  {en:'Hat',        es:'Sombrero o Gorro', emoji:'🎩',
+   tip:'Va en tu cabeza ☀️',
+   whyEs:'[[Hat]] significa sombrero o gorro. Va en la cabeza para darte sombra cuando hace sol, o calor cuando hace frío.'},
+  {en:'Jacket',     es:'Chaqueta',         emoji:'🧡',
+   tip:'Más delgada que el abrigo 🍂',
+   whyEs:'[[Jacket]] significa chaqueta. Es como un abrigo pero más delgado, para cuando hace un poquito de frío.'},
+  {en:'Sandals',    es:'Sandalias',        emoji:'👡',
+   tip:'Para días de calor ☀️',
+   whyEs:'[[Sandals]] significa sandalias. Las usamos en verano porque son abiertas y dejan los pies fresquitos.'},
+  {en:'Scarf',      es:'Bufanda',          emoji:'🧣',
+   tip:'Se enrolla en el cuello 🌬️',
+   whyEs:'[[Scarf]] significa bufanda. La bufanda se enrolla en el cuello para que no entre el frío.'},
+  {en:'Shorts',     es:'Pantaloneta',      emoji:'🩳',
+   tip:'Pantalones cortos para el calor 🌡️',
+   whyEs:'[[Shorts]] significa pantaloneta. Son pantalones cortitos para que no te dé calor.'},
+  {en:'Sunglasses', es:'Gafas de sol',     emoji:'🕶️',
+   tip:'Protegen tus ojos del sol 😎',
+   whyEs:'[[Sunglasses]] significa gafas de sol. En inglés, [[sun]] significa sol y [[glasses]] significa gafas. ¡Juntos forman [[sunglasses]]!'},
+  {en:'Sweater',    es:'Buzo o Suéter',    emoji:'🧶',
+   tip:'Es tejido y muy calientito 🐑',
+   whyEs:'[[Sweater]] significa buzo o suéter. Está hecho de lana y es muy suavecito y calientito.'},
+];
+
+const bodyParts = [
+  {en:'Hair',     es:'Cabello',          emoji:'💇',
+   tip:'Lo que crece en tu cabeza 👩',
+   whyEs:'[[Hair]] significa cabello. Es el pelo que crece en tu cabeza, el que te peina tu mamá.'},
+  {en:'Teeth',    es:'Dientes',          emoji:'🦷',
+   tip:'Los usas para masticar 😁',
+   whyEs:'[[Teeth]] significa dientes. Son los que cepillas todos los días. La palabra para un solo diente es [[tooth]].'},
+  {en:'Shoulder', es:'Hombro',           emoji:'💪',
+   tip:'Arriba del brazo 🤷',
+   whyEs:'[[Shoulder]] significa hombro. Está arriba del brazo, y aparece en la canción [[Head, Shoulders, Knees and Toes]].'},
+  {en:'Neck',     es:'Cuello',           emoji:'🦒',
+   tip:'Une tu cabeza con tu cuerpo',
+   whyEs:'[[Neck]] significa cuello. Es la parte que une tu cabeza con el resto del cuerpo. Aquí ponemos la bufanda cuando hace frío.'},
+  {en:'Elbow',    es:'Codo',             emoji:'🦾',
+   tip:'La parte media del brazo 💪',
+   whyEs:'[[Elbow]] significa codo. Es la parte del medio del brazo que doblas cuando lo flexionas.'},
+  {en:'Finger',   es:'Dedo de la mano', emoji:'☝️',
+   tip:'Tienes 5 en cada mano ✋',
+   whyEs:'[[Finger]] significa dedo de la mano. Tienes cinco en cada mano. Es diferente a [[toe]], que es el dedo del pie.'},
+  {en:'Wrist',    es:'Muñeca',           emoji:'⌚',
+   tip:'Donde va el reloj ⌚',
+   whyEs:'[[Wrist]] significa muñeca de la mano. Aquí es donde se pone el reloj o las pulseras.'},
+  {en:'Knee',     es:'Rodilla',          emoji:'🦵',
+   tip:'La doblas para caminar 🚶',
+   whyEs:'[[Knee]] significa rodilla. Es la parte del medio de tu pierna que doblas cuando caminas o te arrodillas.'},
+  {en:'Toe',      es:'Dedo del pie',    emoji:'🦶',
+   tip:'Tienes 5 en cada pie 🐾',
+   whyEs:'[[Toe]] significa dedo del pie. Tienes cinco en cada pie. Es diferente a [[finger]], que es el dedo de la mano.'},
+  {en:'Ankle',    es:'Tobillo',          emoji:'🦿',
+   tip:'Une la pierna con el pie 👟',
+   whyEs:'[[Ankle]] significa tobillo. Es la parte que une tu pierna con tu pie, donde termina el calcetín.'},
+];
+
+// ─── SPEECH ─────────────────────────────────────────────
+function stopSpeech() { speechSynthesis.cancel(); }
+
+// Pure English utterance (for buttons that only say an English word/phrase)
+function speakEn(text) {
+  stopSpeech();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'en-US'; u.rate = 0.75; u.pitch = 1.0;
+  speechSynthesis.speak(u);
+}
+
+// Mixed: Spanish text with [[English phrases]] marked inside
+// Example: 'La palabra [[boots]] significa botas.'
+// [[...]] segments are spoken in English, the rest in Spanish
+function speakMixed(text) {
+  stopSpeech();
+  const parts = text.split(/(\[\[.*?\]\])/g);
+  const segments = parts
+    .map(p => p.startsWith('[[') && p.endsWith(']]')
+      ? { text: p.slice(2,-2), lang:'en-US', rate:0.75, pitch:1.0 }
+      : { text: p,             lang:'es-CO', rate:0.88, pitch:1.1 })
+    .filter(s => s.text.trim());
+
+  let i = 0;
+  function next() {
+    if (i >= segments.length) return;
+    const seg = segments[i++];
+    const u = new SpeechSynthesisUtterance(seg.text);
+    u.lang = seg.lang; u.rate = seg.rate; u.pitch = seg.pitch;
+    u.onend = next;
+    speechSynthesis.speak(u);
+  }
+  next();
+}
+
+// Alias used by old speakEs() calls — now routes through speakMixed
+function speakEs(text) { speakMixed(text); }
+
+// ─── RENDER CLOTHES ─────────────────────────────────────
+const clothesGrid = document.getElementById('clothesGrid');
+clothes.forEach(c => {
+  clothesGrid.innerHTML += `
+  <div class="cloth-card">
+    <span class="card-emoji">${c.emoji}</span>
+    <span class="card-en">${c.en}</span>
+    <span class="card-es">${c.es}</span>
+    <span class="card-tip">${c.tip}</span>
+    <div class="audio-row">
+      <button class="ab en" onclick="speakEn('${c.en}')">🔊 ${c.en}</button>
+      <button class="ab es" onclick="speakEs('${c.whyEs}')">🇨🇴 ¿Por qué?</button>
+    </div>
+  </div>`;
+});
+
+// ─── RENDER BODY ─────────────────────────────────────────
+const bodyGrid = document.getElementById('bodyGrid');
+bodyParts.forEach(b => {
+  bodyGrid.innerHTML += `
+  <div class="body-card">
+    <span class="card-emoji">${b.emoji}</span>
+    <span class="card-en">${b.en}</span>
+    <span class="card-es">${b.es}</span>
+    <span class="card-tip">${b.tip}</span>
+    <div class="audio-row">
+      <button class="ab en" onclick="speakEn('${b.en}')">🔊 ${b.en}</button>
+      <button class="ab es" onclick="speakEs('${b.whyEs}')">🇨🇴 ¿Por qué?</button>
+    </div>
+  </div>`;
+});
+
+// ─── NAVIGATION ──────────────────────────────────────────
+function showSection(id, btn) {
+  stopSpeech();
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  if (id === 'quiz' && currentQ === 0) initQuiz();
+}
+
+// ─── QUIZ DATA ───────────────────────────────────────────
+const allBaseQ = [
+  ...clothes.map(c => ({
+    question: `¿Cómo se dice "${c.es}" en inglés?`,
+    emoji: c.emoji, hint: c.tip,
+    correct: c.en, type: 'clothes',
+    whyEs: c.whyEs
+  })),
+  ...bodyParts.map(b => ({
+    question: `¿Cómo se dice "${b.es}" en inglés?`,
+    emoji: b.emoji, hint: b.tip,
+    correct: b.en, type: 'body',
+    whyEs: b.whyEs
+  })),
+  {question:'¿Qué verbo usa "I" (yo)?', emoji:'🙋‍♀️',
+   hint:'Solo yo uso este verbo especial.',
+   correct:'AM', type:'verb',
+   whyEs:'La letra [[I]] significa yo en inglés. Solo yo usa [[AM]]. Es único, nadie más lo usa. Por ejemplo: [[I am Antonia]].'},
+  {question:'¿Qué verbo usa "SHE" (ella)?', emoji:'👧',
+   hint:'Es para hablar de 1 sola persona.',
+   correct:'IS', type:'verb',
+   whyEs:'[[SHE]] significa ella. Como es una sola persona, usamos [[IS]]. Por ejemplo: [[She is happy]].'},
+  {question:'¿Qué verbo usa "HE" (él)?', emoji:'👦',
+   hint:'Es para hablar de 1 solo chico.',
+   correct:'IS', type:'verb',
+   whyEs:'[[HE]] significa él. Como es una sola persona, también usamos [[IS]]. Por ejemplo: [[He is tall]].'},
+  {question:'¿Qué verbo usa "THEY" (ellos)?', emoji:'👨‍👩‍👧‍👦',
+   hint:'Son muchas personas.',
+   correct:'ARE', type:'verb',
+   whyEs:'[[THEY]] significa ellos o ellas. Como son varias personas, usamos [[ARE]]. Por ejemplo: [[They are friends]].'},
+  {question:'¿Qué verbo usa "WE" (nosotros)?', emoji:'👨‍👩‍👧',
+   hint:'Somos más de uno juntos.',
+   correct:'ARE', type:'verb',
+   whyEs:'[[WE]] significa nosotros. Como somos un grupo, usamos [[ARE]]. Por ejemplo: [[We are a family]].'},
+  {question:'"This is" es para algo que está...', emoji:'👇',
+   hint:'¿Cerca o lejos de ti?',
+   correct:'Cerca de mí', type:'thisthat',
+   whyEs:'[[This is]] se usa cuando la cosa está muy cerca de ti. Es como decir este o esta en español. Por ejemplo: [[This is my hat]].'},
+  {question:'"That is" es para algo que está...', emoji:'👉',
+   hint:'¿Cerca o lejos de ti?',
+   correct:'Lejos de mí', type:'thisthat',
+   whyEs:'[[That is]] se usa cuando la cosa está lejos de ti. Es como decir ese o esa en español. Por ejemplo: [[That is her coat]].'},
+  {question:'"These are" se usa para...', emoji:'👇👇',
+   hint:'¿Una o varias cosas cercanas?',
+   correct:'Varias cosas cerca', type:'thisthat',
+   whyEs:'[[These are]] se usa cuando hay varias cosas cerca de ti. Es como decir estos o estas en español. Por ejemplo: [[These are my gloves]].'},
+  {question:'"Those are" se usa para...', emoji:'👉👉',
+   hint:'¿Una o varias cosas lejanas?',
+   correct:'Varias cosas lejos', type:'thisthat',
+   whyEs:'[[Those are]] se usa cuando hay varias cosas lejos de ti. Es como decir esos o esas en español. Por ejemplo: [[Those are her boots]].'},
+];
+
+let quizQ = [], currentQ = 0, score = 0, answered = false, currentWhyText = '';
+
+function shuffle(arr) { return [...arr].sort(() => Math.random() - 0.5); }
+
+function initQuiz() {
+  quizQ = shuffle(allBaseQ).slice(0, 10);
+  currentQ = 0; score = 0; answered = false;
+  document.getElementById('congrats').classList.remove('show');
+  document.getElementById('quizActive').style.display = 'block';
+  renderQuestion();
+}
+
+function getWrongs(correct, type) {
+  let pool = [];
+  if (type === 'clothes') pool = clothes.map(c => c.en).filter(e => e !== correct);
+  else if (type === 'body') pool = bodyParts.map(b => b.en).filter(e => e !== correct);
+  else if (type === 'verb') pool = ['AM','IS','ARE'].filter(v => v !== correct);
+  else if (type === 'thisthat') pool = ['Cerca de mí','Lejos de mí','Varias cosas cerca','Varias cosas lejos'].filter(v => v !== correct);
+  return shuffle(pool).slice(0, 3);
+}
+
+function renderQuestion() {
+  stopSpeech();
+  const q = quizQ[currentQ];
+  document.getElementById('quizCounter').textContent = `Pregunta ${currentQ+1} de ${quizQ.length}`;
+  document.getElementById('progressFill').style.width = `${((currentQ+1)/quizQ.length)*100}%`;
+  document.getElementById('quizQuestion').textContent = q.question;
+  document.getElementById('quizEmoji').textContent = q.emoji;
+  document.getElementById('quizHint').textContent = q.hint || '';
+  document.getElementById('quizFeedback').textContent = '';
+  document.getElementById('quizWhyBox').className = 'quiz-why-box';
+  document.getElementById('quizWhyText').textContent = '';
+  document.getElementById('nextBtn').classList.remove('visible');
+  answered = false; currentWhyText = '';
+
+  // auto-read question aloud in Spanish
+  speakMixed(q.question);
+
+  const opts = shuffle([q.correct, ...getWrongs(q.correct, q.type)]);
+  const div = document.getElementById('quizOptions');
+  div.innerHTML = '';
+  opts.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-opt'; btn.textContent = opt;
+    btn.onclick = () => checkAnswer(btn, opt, q.correct, q);
+    div.appendChild(btn);
+  });
+}
+
+function checkAnswer(btn, selected, correct, q) {
+  if (answered) return;
+  answered = true;
+  document.querySelectorAll('.quiz-opt').forEach(b => {
+    b.disabled = true;
+    if (b.textContent === correct) b.classList.add('correct');
+  });
+
+  const fb = document.getElementById('quizFeedback');
+  const wb = document.getElementById('quizWhyBox');
+  const wt = document.getElementById('quizWhyText');
+  currentWhyText = q.whyEs || '';
+
+  // Strip [[]] for display text
+  const displayWhy = currentWhyText.replace(/\[\[|\]\]/g, '');
+
+  if (selected === correct) {
+    btn.classList.add('correct');
+    fb.className = 'quiz-feedback feedback-correct';
+    fb.textContent = '¡Muy bien, Antonia! 🎉';
+    wt.textContent = '💡 ' + displayWhy;
+    wb.className = 'quiz-why-box show';
+    score++; updateStars(); showConfetti();
+    speakMixed('¡Muy bien Antonia! ' + currentWhyText);
+  } else {
+    btn.classList.add('wrong');
+    fb.className = 'quiz-feedback feedback-wrong';
+    fb.textContent = `La respuesta era: ${correct} 💪`;
+    wt.textContent = '💡 ' + displayWhy;
+    wb.className = 'quiz-why-box show';
+    speakMixed('Casi. La respuesta correcta era [[' + correct + ']]. ' + currentWhyText);
+  }
+  document.getElementById('nextBtn').classList.add('visible');
+}
+
+function speakCurrentWhy() {
+  if (currentWhyText) speakMixed(currentWhyText);
+}
+
+function nextQuestion() {
+  stopSpeech();
+  currentQ++;
+  if (currentQ >= quizQ.length) {
+    document.getElementById('quizActive').style.display = 'none';
+    document.getElementById('congrats').classList.add('show');
+    speakMixed('¡Felicitaciones Antonia! Completaste todas las preguntas. ¡Eres una estrella!');
+  } else { renderQuestion(); }
+}
+
+function restartQuiz() { initQuiz(); }
+
+let stars = 0;
+function updateStars() {
+  stars = Math.min(stars + 1, 5);
+  for (let i = 1; i <= stars; i++) {
+    const s = document.getElementById('s'+i);
+    s.textContent = '🌟'; s.classList.add('lit');
+    setTimeout(() => s.classList.remove('lit'), 500);
+  }
+}
+
+function showConfetti() {
+  const c = document.getElementById('confetti');
+  c.innerHTML = ''; c.classList.add('show');
+  const colors = ['#FFD93D','#FF6B9D','#4ECDC4','#A29BFE','#FF9A3C','#6BCB77'];
+  for (let i = 0; i < 30; i++) {
+    const p = document.createElement('div');
+    p.className = 'confetti-piece';
+    p.style.left = Math.random()*100+'vw';
+    p.style.background = colors[Math.floor(Math.random()*colors.length)];
+    p.style.animationDuration = (Math.random()*1.5+0.8)+'s';
+    p.style.animationDelay = Math.random()*0.5+'s';
+    p.style.borderRadius = Math.random()>0.5?'50%':'2px';
+    c.appendChild(p);
+  }
+  setTimeout(() => c.classList.remove('show'), 2500);
+}
+
+setTimeout(initQuiz, 300);
+</script>
+</body>
+</html>
